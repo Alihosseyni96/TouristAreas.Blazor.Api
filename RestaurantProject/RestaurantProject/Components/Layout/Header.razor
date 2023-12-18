@@ -25,7 +25,7 @@
                 <li>
                     <a href="index.html">شهرهای پر بازدید</a>
                     <ul>
-                        @if (cities is not null )
+                        @if (cities is not null)
                         {
                             @foreach (var city in cities)
                             {
@@ -36,8 +36,8 @@
                     </ul>
                 </li>
 
+                <li><a href="gallery.html">مناطق توریستی</a></li>
                 <li><a href="gallery.html">گالری</a></li>
-                <li><a href="#">رویدادها</a></li>
                 <li><a href="contact.html">تماس با ما</a></li>
             </ul>
         </div>
@@ -45,7 +45,7 @@
 </nav>
 
 @code {
-    private List<city> cities { get; set; }
+    private List<city>? cities { get; set; }
     protected override async Task OnInitializedAsync()
     {
         var res = await _client.GetAsync("http://localhost:5000/api/TouristAreas/Cities");

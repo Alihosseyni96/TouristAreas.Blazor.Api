@@ -1,4 +1,5 @@
-﻿using Backed.API.Models.Entities;
+﻿using Backed.API.Models;
+using Backed.API.Models.Entities;
 using Backed.API.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -50,6 +51,12 @@ namespace Backed.API.Controllers
         public async Task<List<TouristArea>> AreaByCityId([FromRoute]int cityId)
         {
             return await _services.AreaByCityId(cityId);
+        }
+
+        [HttpPost]
+        public async Task AddImageToArea([FromForm] AddImageForTouristsArea req)
+        {
+            await _services.AddImageToTouristArea(req);
         }
 
 

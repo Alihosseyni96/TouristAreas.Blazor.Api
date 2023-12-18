@@ -1,4 +1,5 @@
 ﻿using Backed.API.Data;
+using Backed.API.Models;
 using Backed.API.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -41,6 +42,19 @@ namespace Backed.API.Services
         public async Task<List<TouristArea>> AreaByCityId(int cityId)
         {
             return await context.TouristAreas.Where(x=> x.CityId ==  cityId).ToListAsync(); 
+        }
+
+        public async Task AddImageToTouristArea(AddImageForTouristsArea req)
+        {
+            var area = await context.TouristAreas.SingleAsync(x => x.Id == req.AreaId);
+            using (var ms = new MemoryStream())
+            {
+                req.Image.CopyTo(ms);
+                area.Image = ms.ToArray();
+            }
+            await context.SaveChangesAsync();
+            
+
         }
 
 
