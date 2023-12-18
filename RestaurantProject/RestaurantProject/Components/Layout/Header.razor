@@ -1,4 +1,7 @@
-﻿<nav>
+﻿@using System.Text.Json
+@using RestaurantProject.JsonModels
+@inject HttpClient _client;
+<nav>
     <div class="container">
         <div class="row-fluid">
             <ul id="menu" class="sf-menu">
@@ -19,12 +22,22 @@
                         </li>
                     </ul>
                 </li>
-                <li><a href="about.html">درباره ما</a></li>
-                <li><a href="index_one.html">خدمات</a></li>
-                <li><a href="menu.html">منوی ما</a></li>
+                <li>
+                    <a href="index.html">شهرهای پر بازدید</a>
+                    <ul>
+                        @if (cities is not null )
+                        {
+                            @foreach (var city in cities)
+                            {
+                                <li><a href="index.html">@city.name</a></li>
+                            }
+
+                        }
+                    </ul>
+                </li>
+
                 <li><a href="gallery.html">گالری</a></li>
                 <li><a href="#">رویدادها</a></li>
-                <li><a href="blog.html">وبلاگ</a></li>
                 <li><a href="contact.html">تماس با ما</a></li>
             </ul>
         </div>
@@ -32,5 +45,16 @@
 </nav>
 
 @code {
+    private List<city> cities { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        var res = await _client.GetAsync("http://localhost:5000/api/TouristAreas/Cities");
+        if (res.IsSuccessStatusCode)
+        {
+            var json = await res.Content.ReadAsStringAsync();
+            cities = JsonSerializer.Deserialize<List<city>>(json);
+        }
+        await base.OnInitializedAsync();
+    }
 
 }

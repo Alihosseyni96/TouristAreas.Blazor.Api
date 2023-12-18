@@ -22,7 +22,8 @@ namespace Backed.API.Services
 
         public async Task<List<City>> Cities()
         {
-            return await context.Cities.ToListAsync();
+            var res = await context.Cities.ToListAsync();
+            return res;
         }
 
         public async Task AddTouristArea(TouristArea area)

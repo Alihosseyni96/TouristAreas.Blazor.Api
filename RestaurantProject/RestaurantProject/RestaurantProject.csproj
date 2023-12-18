@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Backed.API\Backed.API.csproj" />
     <ProjectReference Include="..\RestaurantProject.Client\RestaurantProject.Client.csproj" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.0" />
   </ItemGroup>
