@@ -1,0 +1,88 @@
+﻿@page "/TouristsArea"
+@using RestaurantProject.JsonModels
+@using System.Text.Json
+@inject HttpClient _client;
+
+
+<div class="row-fluid">
+
+    <div class="info_place">
+        <div class="span4">
+            <ul class="social">
+                <li><a href="#"><img src="img/social/facebook.png" alt="icon-facebook"></a></li>
+                <li><a href="#"><img src="img/social/twitter.png" alt="icon-twitter"></a></li>
+                <li><a href="#"><img src="img/social/rss.png" alt="icon-rss"></a></li>
+                <li><a href="#"><img src="img/social/mail.png" alt="icon-mail"></a></li>
+            </ul>
+        </div>
+        <div class="span4 logo">
+            <a href="index.html"><img src="img/logo.png" alt="icon-logo"></a>
+            <!--  divisor -->
+            <div class="sep_title">
+                <span class="subtitle">
+                    گردشگری
+                    <span class="star-l">&nbsp;</span>
+                    <span class="star-r">&nbsp;</span>
+                </span>
+            </div>
+            <!-- end  divisor -->
+        </div>
+    </div>
+
+</div>
+
+<!-- divisor -->
+<div class="divisor">
+    <div class="circle_right"></div>
+    <span class="cup_shadow"></span>
+    <span class="shadow_divisor"></span>
+    <div class="circle_left"></div>
+</div>
+<!-- end divisor -->
+<!-- title -->
+<div class="title">
+    <h2>لیست کلی مناطق گردشگری</h2>
+</div>
+<!-- end title -->
+
+@if (TouristsAreas is not null)
+{
+    <div class="row-fluid">
+        <div class="span6">
+            @foreach (var area in TouristsAreas.Where((x, i) => i % 2 != 0))
+            {
+                <MenuItem AreaName="@area.name" AreaId="@area.id" Description="@area.description" CityName="@area.city?.Name" />
+            }
+
+        </div>
+
+        <div class="span6">
+            @foreach (var area in TouristsAreas.Where((x, i) => i % 2 == 0))
+            {
+                <MenuItem AreaName="@area.name" AreaId="@area.id" Description="@area.description" CityName="@area.city?.Name" />
+            }
+        </div>
+
+    </div>
+
+}
+
+
+
+
+@code {
+
+    private List<touristsArea>? TouristsAreas{ get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var res = await _client.GetAsync("http://localhost:5000/api/TouristAreas/Areas");
+        if (res.IsSuccessStatusCode)
+        {
+            var json = await res.Content.ReadAsStringAsync();
+            TouristsAreas = JsonSerializer.Deserialize<List<touristsArea>>(json);
+        }
+         await base.OnInitializedAsync();
+    }
+
+}

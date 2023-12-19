@@ -1,0 +1,33 @@
+﻿
+<div class="row-fluid">
+
+    <div class="menu_list img_decoration">
+        <div class="span3">
+            <img src="http://localhost:5000/api/TouristAreas/ImageByAreaId/@AreaId" alt="">
+        </div>
+
+        <div class="span7">
+            <h2>
+                نام : @AreaName
+            </h2>
+            <p>توضیحات : @Description</p>
+        </div>
+
+        <div class="span2">
+            <span>واقع در : @AreaName</span>
+        </div>
+        <div><a class="btn btn-success" href="/area-defails/@AreaId"> مشاهده جزییات </a></div>
+    </div>
+</div>
+
+
+@code {
+    [Parameter]
+    public string AreaName { get; set; }
+    [Parameter]
+    public string Description { get; set; }
+    [Parameter]
+    public string CityName { get; set; }
+    [Parameter]
+    public int AreaId { get; set; }
+}

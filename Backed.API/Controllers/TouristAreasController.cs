@@ -44,7 +44,8 @@ namespace Backed.API.Controllers
         [HttpGet]
         public async Task<List<TouristArea>> Areas()
         {
-            return await _services.Areas();
+            var res =  await _services.Areas();
+            return res;
         }
 
         [HttpGet("{cityId}")]
@@ -57,6 +58,13 @@ namespace Backed.API.Controllers
         public async Task AddImageToArea([FromForm] AddImageForTouristsArea req)
         {
             await _services.AddImageToTouristArea(req);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<FileContentResult> ImageByAreaId([FromRoute]int id)
+        {
+            var imageAsByteArray = await _services.ImageByAreaId(id);
+            return File(imageAsByteArray , "application/octet-stream");
         }
 
 

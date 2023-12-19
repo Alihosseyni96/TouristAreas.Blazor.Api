@@ -36,7 +36,12 @@ namespace Backed.API.Services
 
         public async Task<List<TouristArea>> Areas()
         {
-            return await context.TouristAreas.ToListAsync();
+            var res= await context.TouristAreas.ToListAsync();
+            foreach (var item in res)
+            {
+                item.Image = null;
+            }
+            return res;
         }
 
         public async Task<List<TouristArea>> AreaByCityId(int cityId)
@@ -55,6 +60,12 @@ namespace Backed.API.Services
             await context.SaveChangesAsync();
             
 
+        }
+
+        public async Task<byte[]> ImageByAreaId(int areaId)
+        {
+            var image = (await context.TouristAreas.SingleAsync(x => x.Id == areaId)).Image;
+            return image;
         }
 
 
