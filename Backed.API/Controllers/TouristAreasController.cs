@@ -24,7 +24,7 @@ namespace Backed.API.Controllers
         }
 
         [HttpPost]
-        public async Task AddCity([FromBody]City city)
+        public async Task AddCity([FromBody] AddCityDto city)
         {
             await _services.AddCity(city);
         }

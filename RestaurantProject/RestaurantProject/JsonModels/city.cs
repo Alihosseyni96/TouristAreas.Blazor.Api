@@ -6,4 +6,8 @@
         public string name { get; set; }
 
     }
+    public class addCity
+    {
+        public string name { get; set; }
+    }
 }

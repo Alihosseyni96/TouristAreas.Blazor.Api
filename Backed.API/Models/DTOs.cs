@@ -5,4 +5,10 @@
         public int AreaId { get; set; }
         public IFormFile Image { get; set; }
     }
+
+    public class AddCityDto
+    {
+        public string Name { get; set; }
+
+    }
 }

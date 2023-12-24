@@ -14,9 +14,12 @@ namespace Backed.API.Services
             this.context = context;
         }
 
-        public async Task AddCity(City city)
+        public async Task AddCity(AddCityDto city)
         {
-            await context.Cities.AddAsync(city);
+            await context.Cities.AddAsync(new City()
+            {
+                Name = city.Name,   
+            });
             await context.SaveChangesAsync();
 
         }
