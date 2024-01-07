@@ -1,18 +1,18 @@
-﻿@layout AdminLayout
-@page "/admin-add-city"
-@inject HttpClient _client;
-
+﻿@inject HttpClient _client;
+@rendermode InteractiveServer
 @using RestaurantProject.JsonModels
 @using System.Net.Http.Headers
 
 <div col-xl-10 col-lg-9 col-md-8 mr-auto>
     <form>
         <div class="form-group">
+
             <label for="" dir="rtl">نام شهر : </label>
-            <input type="text" class="form-control" @bind-value="name"  id="exampleInputEmail1" placeholder="نام شهر را واردکنید">
+            <input type="text" class="form-control" @bind-value="name"   id="exampleInputEmail1" placeholder="نام شهر را واردکنید">
         </div>
-        <button type="submit" class="btn btn-primary" @onclick="AddNewCity">ثبت</button>
-        <br />
+        <button class="btn btn-primary" @onclick="AddNewCity">ثبت</button>
+
+         <br />
         <br />
     </form>
 </div>
@@ -20,15 +20,16 @@
 
 
 @code{
-    [Parameter]
     public string name { get; set; }
 
     public async Task AddNewCity()
     {
-        var city = new addCity() { name = this.name };
+        // var city = new addCity() { name = this.name };
+        var city = new { name = "تهران" };
         _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         var res = await _client.PostAsJsonAsync("http://localhost:5000/api/TouristAreas/AddCity", city);
     }
+
 }
 
 

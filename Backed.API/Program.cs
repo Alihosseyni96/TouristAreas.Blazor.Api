@@ -11,6 +11,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddMemoryCache();
+
 builder.Services.AddDbContext<TouristAreaContext>(x =>
 {
     x.UseSqlServer(connectionString: "Data Source=.;Initial Catalog=TouristsAreaContext;Integrated Security=True;TrustServerCertificate=true");

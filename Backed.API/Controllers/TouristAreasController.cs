@@ -3,6 +3,7 @@ using Backed.API.Models.Entities;
 using Backed.API.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using System.Security;
 
 namespace Backed.API.Controllers
@@ -12,14 +13,18 @@ namespace Backed.API.Controllers
     public class TouristAreasController : ControllerBase
     {
         private readonly BakedServices _services;
-        public TouristAreasController(BakedServices services)
+        private readonly IMemoryCache _cache;
+        public TouristAreasController(BakedServices services, IMemoryCache cache)
         {
             _services = services;
+            _cache = cache;
         }
 
         [HttpGet]
-        public async Task<string> SayHello()
+        public async Task<string> SayHello([FromQuery]string name)
         {
+            var t = _cache.Get("name");
+            _cache.Set("name", name);
             return "Hello World";
         }
 
